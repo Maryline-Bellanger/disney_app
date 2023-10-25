@@ -17,11 +17,11 @@ export default function Header() {
                     <button className='btn btn-ghost lg:hidden' tabIndex={0}>
                         <svg xmlns='http://www.w3.org/2000/svg' className='h-8 w-8' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M4 6h16M4 12h8m-8 6h16' /></svg>
                     </button>
-                    <div className='menu menu-sm dropdown-content mt-3 z-[1 shadow bg-cyan-950 rounded-box w-52'>
+                    <div className='menu menu-sm dropdown-content mt-3 z-[1] shadow bg-cyan-950 rounded-box w-52'>
                         {menuList.map((menu, index) => (
                             <div key={index} className='px-5'>
                                 <NavbarItem label={menu.label} />
-                                <div className='pl-2 pb-1' tabIndex={0}>
+                                <div className='pl-2 pb-1'>
                                     <NavSubMenu items={menu.subMenu} />
                                 </div>
                             </div>
