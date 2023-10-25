@@ -5,7 +5,7 @@ import { dataAnimationsDisney } from '@/app/db/dataDisney';
 import useFilms from '@/app/hooks/useFilms';
 
 interface ISearchParams {
-    searchParams: { [key: string]: string | string[] | undefined }
+    searchParams: { [key: string]: string | string[] | undefined };
 } 
 
 export default function DisneyPixarAnim({ searchParams }: ISearchParams) {
@@ -16,7 +16,7 @@ export default function DisneyPixarAnim({ searchParams }: ISearchParams) {
 
     const {filmsList: AnimationsDisney} = useFilms(dataAnimationsDisney);
     const animations = AnimationsDisney.slice(start, end);
-    const title = "Films d'animation Disney - Pixar";
+    const title = "Films d'animation - Disney / Pixar";
 
     return (
         <div className='pt-24 pb-28'>
@@ -26,14 +26,14 @@ export default function DisneyPixarAnim({ searchParams }: ISearchParams) {
                     hasNextPage={end < AnimationsDisney.length}
                     hasPrevPage={start > 0} 
                     link='disney/animations'
-                    perPage="12"
+                    perPage='12'
                     />
             </div>
             <div className='flex flex-wrap justify-center'>
                 {animations.map((animation) => animation &&
-                <div key={animation.id} className='m-3 w-48'>
-                    <CardFilms dataFilms={animation} />
-                </div>
+                    <div key={animation.id} className='m-3 w-48'>
+                        <CardFilms dataFilms={animation} />
+                    </div>
                 )}
             </div>
         </div>

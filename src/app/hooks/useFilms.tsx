@@ -1,6 +1,6 @@
-import axios from "axios";
-import { useQueries } from "@tanstack/react-query";
-import { FilmsData } from "../types/filmsType";
+import axios from 'axios';
+import { useQueries } from '@tanstack/react-query';
+import { FilmsData } from '../types/filmsType';
 
 export default function useFilms(datasFilms: number[]){
     let filmsList = [];

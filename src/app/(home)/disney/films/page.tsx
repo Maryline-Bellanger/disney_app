@@ -5,7 +5,7 @@ import { dataFilmsDisney } from '@/app/db/dataDisney';
 import useFilms from '@/app/hooks/useFilms';
 
 interface ISearchParams {
-    searchParams: { [key: string]: string | string[] | undefined }
+    searchParams: { [key: string]: string | string[] | undefined };
 } 
 
 export default function DisneyFilms({ searchParams }: ISearchParams) {
@@ -16,7 +16,7 @@ export default function DisneyFilms({ searchParams }: ISearchParams) {
 
     const {filmsList: FilmsDisney} = useFilms(dataFilmsDisney);
     const films = FilmsDisney.slice(start, end);
-    const title = "Films Disney";
+    const title = 'Films - Disney';
 
     return (
         <div className='pt-24 pb-28'>
@@ -26,14 +26,14 @@ export default function DisneyFilms({ searchParams }: ISearchParams) {
                     hasNextPage={end < FilmsDisney.length}
                     hasPrevPage={start > 0} 
                     link='disney/films'
-                    perPage="12"
+                    perPage='12'
                     />
             </div>
             <div className='flex flex-wrap justify-center'>
                 {films.map((film) => film &&
-                <div key={film.id} className='m-3 w-48'>
-                    <CardFilms dataFilms={film} />
-                </div>
+                    <div key={film.id} className='m-3 w-48'>
+                        <CardFilms dataFilms={film} />
+                    </div>
                 )}
             </div>
         </div>

@@ -3,7 +3,7 @@ import Pagination from '@/app/components/pagination/Pagination';
 import { dataCharactersStarwars } from '@/app/db/dataStarwars';
 
 interface ISearchParams {
-    searchParams: { [key: string]: string | string[] | undefined }
+    searchParams: { [key: string]: string | string[] | undefined };
 } 
 
 export default function StarwarsCharacters({ searchParams }: ISearchParams) {
@@ -13,7 +13,7 @@ export default function StarwarsCharacters({ searchParams }: ISearchParams) {
     const end = start + Number(per_page);
 
     const characters = dataCharactersStarwars.slice(start, end);
-    const title = "Interprètes Starwars"
+    const title = "Personnages - Starwars";
     return (
     <div className='pt-24 pb-28'>
         <div className='flex items-center justify-between mx-5 mb-4'>
@@ -22,21 +22,20 @@ export default function StarwarsCharacters({ searchParams }: ISearchParams) {
                 hasNextPage={end < dataCharactersStarwars.length}
                 hasPrevPage={start > 0} 
                 link='starwars/characters'
-                perPage="12"
+                perPage='12'
                 />
         </div>
         <div className='flex flex-wrap justify-center'>
             {characters.map((people) => 
-            <div key={people.id}>
-                <CardCharacters 
-                    id={people.id} 
-                    image={people.profil_path}
-                    name={people.name}
-                    character={people.character}
-                />
-            </div>
-            )
-            }
+                <div key={people.id}>
+                    <CardCharacters 
+                        id={people.id} 
+                        image={people.profil_path}
+                        name={people.name}
+                        character={people.character}
+                    />
+                </div>
+            )}
         </div>
     </div>
   )

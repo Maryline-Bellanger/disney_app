@@ -5,12 +5,12 @@ export const menuList: IMenuItem[] = [
         label: "Disney - Pixar",
         subMenu: [
             {
-                label: "Films",
-                link: "/disney/films"
-            },
-            {
                 label: "Films d'animation",
                 link: "/disney/animations"
+            },
+            {
+                label: "Films",
+                link: "/disney/films"
             },
             {
                 label: "Séries",

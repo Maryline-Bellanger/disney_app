@@ -2,10 +2,10 @@ import { imageBaseUrl } from '@/app/utils/imageBaseUrl';
 import Image from 'next/image';
 
 interface ICardCharacter {
-    id: number,
-    image: string,
-    name: string,
-    character: string,
+    id: number;
+    image: string;
+    name: string;
+    character: string;
 }
 
 export default function CardCharacters({ id, image, name, character}: ICardCharacter) {

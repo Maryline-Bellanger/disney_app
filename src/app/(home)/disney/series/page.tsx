@@ -1,12 +1,11 @@
 "use client"
-import CardSeries from '@/app/components/cards/CardSeries'
-import Pagination from '@/app/components/pagination/Pagination'
-import { dataSeriesDisney } from '@/app/db/dataDisney'
-import useSeries from '@/app/hooks/useSeries'
-import React from 'react'
+import CardSeries from '@/app/components/cards/CardSeries';
+import Pagination from '@/app/components/pagination/Pagination';
+import { dataSeriesDisney } from '@/app/db/dataDisney';
+import useSeries from '@/app/hooks/useSeries';
 
 interface ISearchParams {
-    searchParams: { [key: string]: string | string[] | undefined }
+    searchParams: { [key: string]: string | string[] | undefined };
 } 
 
 export default function DisneyPixarSeries({ searchParams }: ISearchParams) {
@@ -17,7 +16,7 @@ export default function DisneyPixarSeries({ searchParams }: ISearchParams) {
     
     const {seriesList: SeriesDisney} = useSeries(dataSeriesDisney);
     const series = SeriesDisney.slice(start, end);
-    const title = "Séries Disney - Pixar";
+    const title = 'Séries - Disney / Pixar';
 
     return (
         <div className='pt-24 pb-28'>
@@ -27,14 +26,14 @@ export default function DisneyPixarSeries({ searchParams }: ISearchParams) {
                     hasNextPage={end < SeriesDisney.length}
                     hasPrevPage={start > 0} 
                     link='disney/series'
-                    perPage="12"
+                    perPage='12'
                     />
             </div>
             <div className='flex flex-wrap justify-center'>
                 {series.map((serie) => serie &&
-                <div key={serie.id} className='m-3 w-48'>
-                    <CardSeries dataSeries={serie} />
-                </div>
+                    <div key={serie.id} className='m-3 w-48'>
+                        <CardSeries dataSeries={serie} />
+                    </div>
                 )}
             </div>
         </div>

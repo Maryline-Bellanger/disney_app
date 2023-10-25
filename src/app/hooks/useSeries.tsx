@@ -1,6 +1,6 @@
-import axios from "axios";
-import { useQueries } from "@tanstack/react-query";
-import { SeriesData } from "../types/seriesType";
+import axios from 'axios';
+import { useQueries } from '@tanstack/react-query';
+import { SeriesData } from '../types/seriesType';
 
 
 export default function useSeries(datasSeries: number[]){
