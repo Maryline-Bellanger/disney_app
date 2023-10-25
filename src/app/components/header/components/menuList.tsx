@@ -32,7 +32,7 @@ export const menuList: IMenuItem[] = [
         ]
     },
     {
-        label: "Star wars",
+        label: "Starwars",
         subMenu: [
             {
                 label: "Films",

@@ -6,39 +6,43 @@ import NavSubMenu from './components/NavSubMenu';
 
 export default function Header() {
     return (
-        <header className='fixed top-0 left-0 z-20 w-full bg-cyan-950'>
-            <nav className='flex items-center justify-between p-2'>
+        <header className='navbar fixed top-0 left-0 z-20 bg-cyan-950'>
+            <div className='navbar-start'>
                 <Link href={'/'}>
-                    <Image src='/images/disney_logo.png' alt={''} width={100} height={50} />
+                    <Image src='/images/disney_logo.png' alt='Logo disney' width={100} height={50} />
                 </Link>
-                <div className='lg:hidden group w-40 flex justify-end'>
-                    <button tabIndex={0}>
+            </div>
+            <div className='navbar-end'>
+                <div className='dropdown dropdown-end' tabIndex={0}>
+                    <button className='btn btn-ghost lg:hidden' tabIndex={0}>
                         <svg xmlns='http://www.w3.org/2000/svg' className='h-8 w-8' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M4 6h16M4 12h8m-8 6h16' /></svg>
                     </button>
-                    <div tabIndex={0} className='hidden absolute group-hover:block pt-6 top-12 right-0 bg-cyan-950 rounded-2xl'>
+                    <div className='menu menu-sm dropdown-content mt-3 z-[1 shadow bg-cyan-950 rounded-box w-52'>
                         {menuList.map((menu, index) => (
                             <div key={index} className='px-5'>
                                 <NavbarItem label={menu.label} />
-                                <div className='pl-2 pb-1'>
+                                <div className='pl-2 pb-1' tabIndex={0}>
                                     <NavSubMenu items={menu.subMenu} />
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
-                <div className='hidden lg:flex mr-16'>
-                    {menuList.map((menu, index) => (
-                        <div key={index} className='group px-5'>
-                            <NavbarItem
-                                label={menu.label}
-                            />
-                            <div className='hidden absolute group-hover:block bg-cyan-950 w-40 rounded-2xl pt-1'>
-                                <NavSubMenu items={menu.subMenu} />
-                            </div>
+            </div>
+            <div className='navbar-end hidden lg:flex mr-12'>
+                <div className='flex flex-row px-1'>
+                {menuList.map((menu, index) => (
+                    <div key={index} className='group px-5'>
+                        <NavbarItem
+                            label={menu.label}
+                        />
+                        <div className='hidden absolute group-hover:block bg-cyan-950 w-40 rounded-2xl pt-1'>
+                            <NavSubMenu items={menu.subMenu} />
                         </div>
-                    ))}
+                    </div>
+                ))}
                 </div>
-            </nav>
+            </div>
         </header>
     )
 }
