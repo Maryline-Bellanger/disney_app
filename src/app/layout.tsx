@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import Footer from './components/footer/Footer';
 
 export const metadata: Metadata = {
     title: 'Disney App',
@@ -16,7 +15,6 @@ export default function RootLayout({
         <html lang="en">
             <body className='bg-stone-900 w-full min-h-screen max-h-full'>
                 {children}
-                <Footer />
             </body>
         </html>
     )
