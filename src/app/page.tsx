@@ -6,20 +6,20 @@ import StarwarsLogo from '../../public/images/starwars_logo.png';
 
 export default function Home() {
   return (
-        <div className='pb-24 min-h-screen max-h-full flex flex-wrap justify-around items-center'>
-            <div className='py-10'>
+        <div className='pb-24 min-h-screen max-h-full flex flex-wrap justify-evenly items-center'>
+            <div>
                 <Link href={'/disney/animations'}>
-                    <Image src={DisneyPixarLogo} alt="Lien vers disney-pixar" width={300} height={200} />
+                    <Image src={DisneyPixarLogo} alt="Lien vers disney-pixar" width={290} height={200} />
                 </Link>
             </div>
-            <div className='py-10'>
+            <div>
                 <Link href={'/marvel/films'}>
-                    <Image src={MarvelLogo} alt="Lien vers marvel" width={320} height={200} />
+                    <Image src={MarvelLogo} alt="Lien vers marvel" width={300} height={200} />
                 </Link>
             </div>
-            <div className='py-10'>
+            <div>
                 <Link href={'/starwars/films'}>
-                    <Image src={StarwarsLogo} alt="Lien vers starwars" width={320} height={200} />
+                    <Image src={StarwarsLogo} alt="Lien vers starwars" width={300} height={200} />
                 </Link>
             </div>
         </div>
