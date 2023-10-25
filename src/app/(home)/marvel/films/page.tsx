@@ -1,5 +1,6 @@
 "use client"
 import CardFilms from '@/app/components/cards/CardFilms';
+import Loading from '@/app/components/loading/Loading';
 import Pagination from '@/app/components/pagination/Pagination';
 import { dataFilmsMarvel } from '@/app/db/dataMarvel';
 import useFilms from '@/app/hooks/useFilms';
@@ -14,16 +15,18 @@ export default function MarvelFilms({ searchParams }: ISearchParams) {
     const start = (Number(page) - 1) * Number(per_page);
     const end = start + Number(per_page);
     
-    const {filmsList: FilmsMarvel} = useFilms(dataFilmsMarvel)
-    const films = FilmsMarvel.slice(start, end);
+    const {filmsQueries: FilmsMarvel} = useFilms(dataFilmsMarvel)
+    const films = FilmsMarvel.data.slice(start, end);
     const title = 'Films - Marvel'
+
+    if (FilmsMarvel.loading) return <Loading />;
 
     return (
         <div className='pt-24 pb-28'>
             <div className='flex items-center justify-between mx-5 mb-4'>
                 <h1 className='text-2xl'>{title}</h1>
                 <Pagination 
-                    hasNextPage={end < FilmsMarvel.length}
+                    hasNextPage={end < FilmsMarvel.data.length}
                     hasPrevPage={start > 0} 
                     link='marvel/films'
                     perPage='10'

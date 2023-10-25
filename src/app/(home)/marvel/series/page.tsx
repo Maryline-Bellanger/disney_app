@@ -1,5 +1,6 @@
 "use client"
 import CardSeries from '@/app/components/cards/CardSeries';
+import Loading from '@/app/components/loading/Loading';
 import Pagination from '@/app/components/pagination/Pagination';
 import { dataSeriesMarvel } from '@/app/db/dataMarvel';
 import useSeries from '@/app/hooks/useSeries';
@@ -14,16 +15,18 @@ export default function MarvelSeries({ searchParams }: ISearchParams) {
     const start = (Number(page) - 1) * Number(per_page);
     const end = start + Number(per_page);
     
-    const {seriesList: SeriesMarvel} = useSeries(dataSeriesMarvel);
-    const series = SeriesMarvel.slice(start, end);
+    const {seriesQueries: SeriesMarvel} = useSeries(dataSeriesMarvel);
+    const series = SeriesMarvel.data.slice(start, end);
     const title = 'Séries - Marvel';
+
+    if (SeriesMarvel.loading) return <Loading />;
 
     return (
         <div className='pt-24 pb-28'>
             <div className='flex items-center justify-between mx-5 mb-4'>
                 <h1 className='text-2xl'>{title}</h1>
                 <Pagination 
-                    hasNextPage={end < SeriesMarvel.length}
+                    hasNextPage={end < SeriesMarvel.data.length}
                     hasPrevPage={start > 0} 
                     link='marvel/series'
                     perPage='10'

@@ -22,12 +22,17 @@ export default function useFilms(datasFilms: number[]){
                         .get(`https://api.themoviedb.org/3/movie/${film}?language=fr-FR`, options)
                         .then(res => res.data)
             }
-        })
+        }),
+        combine: (results) => {
+            return ({
+                data: results.map(result => result.data),
+                loading: results.some(result => result.isLoading), 
+            })
+        }
     })
 
-    filmsList = filmsQueries.map((films) => films.data)
     
     return {
-        filmsList,
+        filmsQueries
     }
 }

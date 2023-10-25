@@ -23,12 +23,16 @@ export default function useSeries(datasSeries: number[]){
                         .get(`https://api.themoviedb.org/3/tv/${serie}?language=fr-FR`, options)
                         .then(res => res.data)
             }
-        })
+        }),
+        combine: (results) => {
+            return ({
+                data: results.map(result => result.data),
+                loading: results.some(result => result.isLoading), 
+            })
+        }
     })
     
-    seriesList = seriesQueries.map((series) => series.data)
-
     return {
-        seriesList,
+        seriesQueries,
     }
 }

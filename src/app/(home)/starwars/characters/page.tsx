@@ -14,6 +14,7 @@ export default function StarwarsCharacters({ searchParams }: ISearchParams) {
 
     const characters = dataCharactersStarwars.slice(start, end);
     const title = "Personnages - Starwars";
+    
     return (
     <div className='pt-24 pb-28'>
         <div className='flex items-center justify-between mx-5 mb-4'>

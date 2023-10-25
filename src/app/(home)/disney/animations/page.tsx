@@ -1,5 +1,6 @@
 "use client"
 import CardFilms from '@/app/components/cards/CardFilms';
+import Loading from '@/app/components/loading/Loading';
 import Pagination from '@/app/components/pagination/Pagination';
 import { dataAnimationsDisney } from '@/app/db/dataDisney';
 import useFilms from '@/app/hooks/useFilms';
@@ -14,16 +15,18 @@ export default function DisneyPixarAnim({ searchParams }: ISearchParams) {
     const start = (Number(page) - 1) * Number(per_page);
     const end = start + Number(per_page);
 
-    const {filmsList: AnimationsDisney} = useFilms(dataAnimationsDisney);
-    const animations = AnimationsDisney.slice(start, end);
+    const {filmsQueries: AnimationsDisney} = useFilms(dataAnimationsDisney);
+    const animations = AnimationsDisney.data.slice(start, end);
     const title = "Films d'animation - Disney / Pixar";
+
+    if (AnimationsDisney.loading) return <Loading />;
 
     return (
         <div className='pt-24 pb-28'>
             <div className='flex items-center justify-between mx-5 mb-4'>
                 <h1 className='text-2xl'>{title}</h1>
                 <Pagination 
-                    hasNextPage={end < AnimationsDisney.length}
+                    hasNextPage={end < AnimationsDisney.data.length}
                     hasPrevPage={start > 0} 
                     link='disney/animations'
                     perPage='12'
