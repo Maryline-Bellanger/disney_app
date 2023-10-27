@@ -3,9 +3,7 @@ import { useQueries } from '@tanstack/react-query';
 import { FilmsData } from '../types/filmsType';
 
 export default function useFilms(datasFilms: number[]){
-    let filmsList = [];
-
-        const options = {
+    const options = {
             method: 'GET',
             headers: {
                 accept: 'application/json',

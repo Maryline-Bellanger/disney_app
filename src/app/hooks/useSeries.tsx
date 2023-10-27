@@ -4,8 +4,6 @@ import { SeriesData } from '../types/seriesType';
 
 
 export default function useSeries(datasSeries: number[]){
-    let seriesList = [];
-
     const options = {
         method: 'GET',
         headers: {
