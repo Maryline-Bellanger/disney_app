@@ -1,16 +1,15 @@
 import { ISubMenuItem } from '@/app/types/navbar';
-import Link from 'next/link';
 
 interface INavSubMenuProps {
     items: ISubMenuItem[];
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    onClose: any;
 }
 
-export default function NavSubMenu({ items, setIsOpen }: INavSubMenuProps) {
+export default function NavSubMenu({ items, onClose }: INavSubMenuProps) {
     return (
         <div>{items.map((item, index) => (
             <div key={index} className='hover:text-cyan-400 hover:font-semibold rounded-2xl'>
-                <a href={item.link} onClick={() => setIsOpen(true)}>
+                <a href={item.link} onClick={onClose}>
                     <p className='px-2 py-1'>{item.label}</p>
                 </a>
             </div>))}
