@@ -13,7 +13,7 @@ export default function CardFilms({ dataFilms }: IDataFilmsProps) {
 
     return (
         <>
-            <div onClick={() => setShowModal(true)}>
+            <div className='hover:cursor-pointer' onClick={() => setShowModal(true)}>
                 <Image src={imageBaseUrl + dataFilms?.poster_path} alt={''} width={200} height={300} priority={true} />
             </div>
             <CardModalFilms dataFilms={dataFilms} isVisible={showModal} onClose={() => setShowModal(false)} />

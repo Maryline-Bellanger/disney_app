@@ -13,7 +13,7 @@ export default function CardSeries({ dataSeries }: IDataSeriesProps) {
     
     return (
         <>
-            <div onClick={() => setShowModal(true)}>
+            <div className='hover:cursor-pointer' onClick={() => setShowModal(true)}>
                 <Image src={imageBaseUrl + dataSeries?.poster_path} alt={''} width={200} height={300} priority={true} />
             </div>
             <CardModalSeries dataSeries={dataSeries} isVisible={showModal} onClose={() => setShowModal(false)} />
