@@ -1,6 +1,7 @@
 export const dataFilmsMarvel = [
     447365,
     774752,
+    453395,
     429617,
     320288,
     299534,
@@ -50,6 +51,7 @@ export const dataSeriesMarvel = [
     84958,
     88396,
     85271,
+    114695,
     72705,
     91278,
     63181,

@@ -5,7 +5,7 @@ import Image from 'next/image';
 interface IModalSeriesProps {
     dataSeries: SeriesData | undefined;
     isVisible: boolean;
-    onClose:any;
+    onClose: any;
 }
 
 export default function CardModalSeries({ dataSeries, isVisible, onClose }: IModalSeriesProps) {

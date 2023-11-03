@@ -5,7 +5,7 @@ import Image from 'next/image';
 interface IModalFilmsProps {
     dataFilms: FilmsData | undefined;
     isVisible: boolean;
-    onClose:any;
+    onClose: any;
 }
 
 export default function CardModalFilms({ dataFilms, isVisible, onClose }: IModalFilmsProps) {

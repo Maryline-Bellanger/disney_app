@@ -6,6 +6,7 @@ export const dataFilmsDisney = [
     338958,
     642885,
     532639,
+    809107,
     759054,
     420821,
     756187,
@@ -204,6 +205,7 @@ export const dataFilmsDisney = [
 
 export const dataAnimationsDisney = [
     1022796,
+    1139087,
     976573,
     877269,
     508947,
@@ -330,6 +332,7 @@ export const dataSeriesDisney = [
     114105,
     115304,
     134297,
+    203884,
     130372,
     114501,
     127633,
