@@ -322,6 +322,7 @@ export const dataAnimationsDisney = [
 ]
 
 export const dataSeriesDisney = [
+    103540,
     206017,
     194573,
     202212,
