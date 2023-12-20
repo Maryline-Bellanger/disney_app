@@ -22,10 +22,15 @@ export default function CardModalFilms({ dataFilms, isVisible, onClose }: IModal
                     <div className="card-body ">
                         <h2 className="card-title">{dataFilms?.title}</h2>
                         <div className='flex flex-row'>
-                            <p className='grow-0'>{dataFilms?.release_date && dataFilms?.release_date.split("-").reverse().join("/")} - {dataFilms?.runtime && `${Math.floor(dataFilms?.runtime / 60)} h ${dataFilms.runtime % 60} min`}</p>
-                            
+                            <p className='grow-0'>{dataFilms?.release_date &&
+                                dataFilms?.release_date.split("-").reverse().join("/")}
+                                <span className="text-xs"> 🔸 </span>
+                                {dataFilms?.genres && dataFilms?.genres.map((genre) => genre.name).join(", ")}
+                                <span className="text-xs"> 🔸 </span>
+                                {dataFilms?.runtime && `${Math.floor(dataFilms?.runtime / 60)} h ${dataFilms.runtime % 60} min`}
+                            </p>
                         </div>
-                        <p>{dataFilms?.overview}</p>
+                        <div className="mt-5">{dataFilms?.overview}</div>
                     </div>
                 </div>
             </div>

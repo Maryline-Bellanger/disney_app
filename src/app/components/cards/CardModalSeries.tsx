@@ -23,9 +23,14 @@ export default function CardModalSeries({ dataSeries, isVisible, onClose }: IMod
                     <div className="card-body ">
                         <h2 className="card-title">{dataSeries?.name} ({dataSeries?.first_air_date.split("-")[0]})</h2>
                         <div className='flex flex-row'>
-                            <p className='grow-0'>{dataSeries?.number_of_seasons !== undefined ? dataSeries.number_of_seasons > 1 ? `${dataSeries.number_of_seasons} saisons` : `${dataSeries.number_of_seasons} saison` : ""} - {dataSeries?.number_of_episodes !== undefined ? dataSeries.number_of_episodes > 1 ? `${dataSeries.number_of_episodes} épisodes` : `${dataSeries.number_of_episodes} épisode` : ""}</p>
+                            <p className='grow-0'>{dataSeries?.number_of_seasons && dataSeries?.number_of_seasons > 1 ? `${dataSeries?.number_of_seasons} saisons` : `${dataSeries?.number_of_seasons} saison`}
+                                {" - "}
+                                {dataSeries?.number_of_episodes && dataSeries?.number_of_episodes > 1 ? `${dataSeries?.number_of_episodes} épisodes` : `${dataSeries?.number_of_episodes} épisode`} 
+                                <span className="text-xs"> 🔸 </span>
+                                {dataSeries?.genres && dataSeries?.genres.map((genre) => genre.name).join(", ")}
+                            </p>
                         </div>
-                        <p>{dataSeries?.overview}</p>
+                        <div className="mt-5">{dataSeries?.overview}</div>
                     </div>
                 </div>
             </div>
