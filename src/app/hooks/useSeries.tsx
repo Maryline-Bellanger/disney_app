@@ -25,7 +25,9 @@ export default function useSeries(datasSeries: number[]){
         combine: (results) => {
             return ({
                 data: results.map(result => result.data),
-                loading: results.some(result => result.isLoading), 
+                loading: results.some(result => result.isLoading),
+                sortAsc: results.map(result => result.data).sort((a,b) => a && b !== undefined ? a.first_air_date.localeCompare(b.first_air_date): 0),
+                sortDesc: results.map(result => result.data).sort((a,b) => a && b !== undefined ? b.first_air_date.localeCompare(a.first_air_date): 0),
             })
         }
     })

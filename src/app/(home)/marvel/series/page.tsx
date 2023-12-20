@@ -4,6 +4,8 @@ import Loading from '@/app/components/loading/Loading';
 import Pagination from '@/app/components/pagination/Pagination';
 import { dataSeriesMarvel } from '@/app/db/dataMarvel';
 import useSeries from '@/app/hooks/useSeries';
+import Image from 'next/image';
+import { useState } from 'react';
 
 interface ISearchParams {
     searchParams: { [key: string]: string | string[] | undefined };
@@ -14,9 +16,10 @@ export default function MarvelSeries({ searchParams }: ISearchParams) {
     const per_page = searchParams['per_page'] ?? '10';
     const start = (Number(page) - 1) * Number(per_page);
     const end = start + Number(per_page);
-    
+    const [order, setOrder] = useState(false);
+
     const {seriesQueries: SeriesMarvel} = useSeries(dataSeriesMarvel);
-    const series = SeriesMarvel.data.slice(start, end);
+    const series = order === true ? SeriesMarvel.sortAsc.slice(start, end) : SeriesMarvel.sortDesc.slice(start, end);
     const title = 'Séries - Marvel';
 
     if (SeriesMarvel.loading) return <Loading />;
@@ -31,6 +34,10 @@ export default function MarvelSeries({ searchParams }: ISearchParams) {
                     link='marvel/series'
                     perPage='10'
                     />
+            </div>
+            <div className='flex mx-5 mb-4'>
+                <span className='mr-5'>Trier par date</span>
+                <button  onClick={() => setOrder(!order)}><Image src={'/images/up_down.png'} alt={''} width={25} height={25} /></button>
             </div>
             <div className='flex flex-wrap justify-center'>
                 {series.map((serie) => serie &&

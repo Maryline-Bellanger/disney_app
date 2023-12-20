@@ -25,6 +25,8 @@ export default function useFilms(datasFilms: number[]){
             return ({
                 data: results.map(result => result.data),
                 loading: results.some(result => result.isLoading), 
+                sortAsc: results.map(result => result.data).sort((a,b) => a && b !== undefined ? a.release_date.localeCompare(b.release_date): 0),
+                sortDesc: results.map(result => result.data).sort((a,b) => a && b !== undefined ? b.release_date.localeCompare(a.release_date): 0),
             })
         }
     })
