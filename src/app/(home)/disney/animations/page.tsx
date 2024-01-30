@@ -2,10 +2,10 @@
 import CardFilms from '@/app/components/cards/CardFilms';
 import Loading from '@/app/components/loading/Loading';
 import Pagination from '@/app/components/pagination/Pagination';
-import { dataAnimationsDisney } from '@/app/db/dataDisney';
+import { Animations } from '@/app/types/definitions';
 import useFilms from '@/app/hooks/useFilms';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface ISearchParams {
     searchParams: { [key: string]: string | string[] | undefined };
@@ -17,8 +17,22 @@ export default function DisneyPixarAnim({ searchParams }: ISearchParams) {
     const start = (Number(page) - 1) * Number(per_page);
     const end = start + Number(per_page);
     const [order, setOrder] = useState(false);
+    const [animationsDisney, setAnimationsDisney] = useState<Animations[]>([]);
 
-    const {filmsQueries: AnimationsDisney} = useFilms(dataAnimationsDisney);
+    const getData = async () => {
+        await fetch('/api/disney/animations')
+        .then( res => res.json() )
+        .then( data => {
+            setAnimationsDisney(data.data.rows);
+        })
+    }
+
+    useEffect(() => {
+        getData();
+    }, [])
+
+    const dataDisney = animationsDisney.map((anim) => anim.tmdb_id);
+    const {filmsQueries: AnimationsDisney} = useFilms(dataDisney);
     const animations = order === true ? AnimationsDisney.sortAsc.slice(start, end) : AnimationsDisney.sortDesc.slice(start, end);
     const title = "Films d'animation - Disney / Pixar";
 

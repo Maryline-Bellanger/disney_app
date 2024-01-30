@@ -1,14 +1,29 @@
 "use client"
 import CardSeries from '@/app/components/cards/CardSeries';
 import Loading from '@/app/components/loading/Loading';
-import { dataSeriesStarwars } from '@/app/db/dataStarwars';
+import { Series } from '@/app/types/definitions';
 import useSeries from '@/app/hooks/useSeries';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function StarwarsSeries() {
     const [order, setOrder] = useState(false);
-    const {seriesQueries: SeriesStarwars} = useSeries(dataSeriesStarwars);
+    const [seriesStarwars, setSeriesStarwars] = useState<Series[]>([]);
+
+    const getData = async () => {
+        await fetch('/api/starwars/series')
+        .then( res => res.json() )
+        .then( data => {
+            setSeriesStarwars(data.data.rows);
+        })
+    }
+    
+    useEffect(() => {
+        getData();
+    }, [])
+
+    const dataStarwars = seriesStarwars.map((serie) => serie.tmdb_id);
+    const {seriesQueries: SeriesStarwars} = useSeries(dataStarwars);
     const series = order === true ? SeriesStarwars.sortAsc : SeriesStarwars.sortDesc;
     const title = 'Séries - Starwars';
 

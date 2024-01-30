@@ -2,10 +2,10 @@
 import CardSeries from '@/app/components/cards/CardSeries';
 import Loading from '@/app/components/loading/Loading';
 import Pagination from '@/app/components/pagination/Pagination';
-import { dataSeriesMarvel } from '@/app/db/dataMarvel';
+import { Series } from '@/app/types/definitions';
 import useSeries from '@/app/hooks/useSeries';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface ISearchParams {
     searchParams: { [key: string]: string | string[] | undefined };
@@ -17,8 +17,23 @@ export default function MarvelSeries({ searchParams }: ISearchParams) {
     const start = (Number(page) - 1) * Number(per_page);
     const end = start + Number(per_page);
     const [order, setOrder] = useState(false);
+    const [seriesMarvel, setSeriesMarvel] = useState<Series[]>([]);
 
-    const {seriesQueries: SeriesMarvel} = useSeries(dataSeriesMarvel);
+    const getData = async () => {
+        await fetch('/api/marvel/series')
+        .then( res => res.json() )
+        .then( data => {
+            setSeriesMarvel(data.data.rows);
+        })
+    }
+
+    useEffect(() => {
+        getData();
+    }, [])
+
+    const dataMarvel = seriesMarvel.map((serie) => serie.tmdb_id);
+
+    const {seriesQueries: SeriesMarvel} = useSeries(dataMarvel);
     const series = order === true ? SeriesMarvel.sortAsc.slice(start, end) : SeriesMarvel.sortDesc.slice(start, end);
     const title = 'Séries - Marvel';
 

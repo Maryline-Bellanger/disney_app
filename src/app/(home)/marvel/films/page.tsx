@@ -2,10 +2,10 @@
 import CardFilms from '@/app/components/cards/CardFilms';
 import Loading from '@/app/components/loading/Loading';
 import Pagination from '@/app/components/pagination/Pagination';
-import { dataFilmsMarvel } from '@/app/db/dataMarvel';
+import { Films } from '@/app/types/definitions';
 import useFilms from '@/app/hooks/useFilms';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface ISearchParams {
     searchParams: { [key: string]: string | string[] | undefined };
@@ -17,8 +17,22 @@ export default function MarvelFilms({ searchParams }: ISearchParams) {
     const start = (Number(page) - 1) * Number(per_page);
     const end = start + Number(per_page);
     const [order, setOrder] = useState(false);
+    const [filmsMarvel, setFilmsMarvel] = useState<Films[]>([]);
+
+    const getData = async () => {
+        await fetch('/api/marvel/films')
+        .then( res => res.json() )
+        .then( data => {
+            setFilmsMarvel(data.data.rows);
+        })
+    }
+
+    useEffect(() => {
+        getData();
+    }, [])
     
-    const {filmsQueries: FilmsMarvel} = useFilms(dataFilmsMarvel)
+    const dataMarvel = filmsMarvel.map((film) => film.tmdb_id);
+    const {filmsQueries: FilmsMarvel} = useFilms(dataMarvel)
     const films = order === true ? FilmsMarvel.sortAsc.slice(start, end) : FilmsMarvel.sortDesc.slice(start, end);
     const title = 'Films - Marvel'
 

@@ -2,10 +2,10 @@
 import CardFilms from '@/app/components/cards/CardFilms';
 import Loading from '@/app/components/loading/Loading';
 import Pagination from '@/app/components/pagination/Pagination';
-import { dataFilmsDisney } from '@/app/db/dataDisney';
+import { Films } from '@/app/types/definitions';
 import useFilms from '@/app/hooks/useFilms';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface ISearchParams {
     searchParams: { [key: string]: string | string[] | undefined };
@@ -17,8 +17,23 @@ export default function DisneyFilms({ searchParams }: ISearchParams) {
     const start = (Number(page) - 1) * Number(per_page);
     const end = start + Number(per_page);
     const [order, setOrder] = useState(false);
+    const [filmsDisney, setFilmsDisney] = useState<Films[]>([]);
+
+    const getData = async () => {
+        await fetch('/api/disney/films')
+        .then( res => res.json() )
+        .then( data => {
+            setFilmsDisney(data.data.rows);
+        })
+    }
+
+    useEffect(() => {
+        getData();
+    }, [])
+
+    const dataDisney = filmsDisney.map((film) => film.tmdb_id);
     
-    const {filmsQueries: FilmsDisney} = useFilms(dataFilmsDisney);
+    const {filmsQueries: FilmsDisney} = useFilms(dataDisney);
     const films = order === true ? FilmsDisney.sortAsc.slice(start, end) : FilmsDisney.sortDesc.slice(start, end);
     const title = 'Films - Disney';
 

@@ -1,18 +1,34 @@
 "use client"
 import CardFilms from '@/app/components/cards/CardFilms';
 import Loading from '@/app/components/loading/Loading';
-import { dataFilmsStarwars } from '@/app/db/dataStarwars';
+import { Films } from '@/app/types/definitions';
 import useFilms from '@/app/hooks/useFilms';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
 
 export default function StarwarsFilms() {
     const [order, setOrder] = useState(false);
-    const {filmsQueries: FilmsStarwars} = useFilms(dataFilmsStarwars);
-    const films = order === true ? FilmsStarwars.sortAsc : FilmsStarwars.sortDesc;
+    const [filmsStarwars, setFilmsStarwars] = useState<Films[]>([]);
+
+    const getData = async () => {
+        await fetch('/api/starwars/films')
+        .then( res => res.json() )
+        .then( data => {
+            setFilmsStarwars(data.data.rows);
+        })
+    }
+
+    useEffect(() => {
+        getData();
+    }, [])
+
+    const dataStarwars = filmsStarwars.map((film) => film.tmdb_id);
+    const {filmsQueries: DataFilmsStarwars} = useFilms(dataStarwars);
+    const films = order === true ? DataFilmsStarwars.sortAsc : DataFilmsStarwars.sortDesc;
     const title = 'Films - Starwars';
 
-    if (FilmsStarwars.loading) return <Loading />;
+    if (DataFilmsStarwars.loading) return <Loading />;
 
     return (
         <div className='pt-24 pb-28'>
