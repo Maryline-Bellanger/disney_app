@@ -1,15 +1,20 @@
 import { Series } from "@/app/types/definitions";
 import { sql } from "@vercel/postgres";
-import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+    const path = request.nextUrl.searchParams.get("path");
     let dataSeriesDisney;
 
     try {
-        dataSeriesDisney = await sql<Series>`SELECT tmdb_id FROM disney_series;`;
-      } catch (error) {
+        dataSeriesDisney =
+            await sql<Series>`SELECT tmdb_id FROM disney_series;`;
+    } catch (error) {
         return NextResponse.json({ error });
-      }
-     
-      return NextResponse.json({ data: dataSeriesDisney });
+    }
+    if (path) {
+        revalidatePath(path);
+    }
+    return NextResponse.json({ data: dataSeriesDisney });
 }

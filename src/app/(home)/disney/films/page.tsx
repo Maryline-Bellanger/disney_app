@@ -6,6 +6,7 @@ import { Films } from '@/app/types/definitions';
 import useFilms from '@/app/hooks/useFilms';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { revalidatePath } from 'next/cache';
 
 interface ISearchParams {
     searchParams: { [key: string]: string | string[] | undefined };
@@ -24,6 +25,7 @@ export default function DisneyFilms({ searchParams }: ISearchParams) {
         .then( res => res.json() )
         .then( data => {
             setFilmsDisney(data.data.rows);
+            
         })
     }
 
@@ -38,7 +40,7 @@ export default function DisneyFilms({ searchParams }: ISearchParams) {
     const title = 'Films - Disney';
 
     if (FilmsDisney.loading) return <Loading />;
-
+    console.log(filmsDisney);
     return (
         <div className='pt-24 pb-28'>
             <div className='flex items-center justify-between mx-5 mb-4'>

@@ -1,8 +1,7 @@
 "use client"
 import CardCharacters from '@/app/components/cards/CardCharacters';
 import Pagination from '@/app/components/pagination/Pagination';
-import { Characters } from '@/app/types/definitions';
-import { useEffect, useState } from 'react';
+import { starwars_characters } from '../../../db/dataStarwars'
 
 interface ISearchParams {
     searchParams: { [key: string]: string | string[] | undefined };
@@ -13,21 +12,8 @@ export default function StarwarsCharacters({ searchParams }: ISearchParams) {
     const per_page = searchParams['per_page'] ?? '12';
     const start = (Number(page) - 1) * Number(per_page);
     const end = start + Number(per_page);
-    const [charactersStarwars, setCharactersStarwars] = useState<Characters[]>([]);
 
-    const getData = async () => {
-        await fetch('/api/starwars/characters')
-        .then( res => res.json() )
-        .then( data => {
-            setCharactersStarwars(data.data.rows);
-        })
-    }
-
-    useEffect(() => {
-        getData();
-    }, [])
-
-    const characters = charactersStarwars.slice(start, end);
+    const characters = starwars_characters.slice(start, end);
     const title = "Personnages - Starwars";
     
     return (
@@ -35,7 +21,7 @@ export default function StarwarsCharacters({ searchParams }: ISearchParams) {
         <div className='flex items-center justify-between mx-5 mb-4'>
             <h1 className='text-2xl'>{title}</h1>
             <Pagination 
-            hasNextPage={end < charactersStarwars.length}
+            hasNextPage={end < starwars_characters.length}
             hasPrevPage={start > 0} 
             link='starwars/characters'
             perPage='12'

@@ -1,15 +1,19 @@
 import { Films } from "@/app/types/definitions";
 import { sql } from "@vercel/postgres";
-import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+    const path = request.nextUrl.searchParams.get("path");
     let dataFilmsDisney;
 
     try {
         dataFilmsDisney = await sql<Films>`SELECT tmdb_id FROM disney_films;`;
-      } catch (error) {
+    } catch (error) {
         return NextResponse.json({ error });
-      }
-     
-      return NextResponse.json({ data: dataFilmsDisney });
+    }
+    if (path) {
+        revalidatePath(path);
+    }
+    return NextResponse.json({ data: dataFilmsDisney });
 }
