@@ -9,4 +9,4 @@ Pour en savoir plus sur Next.js, vous pouvez consultez les ressources suivantes
 
 ## Lien vers l'application
 
-https://disney-app-nextjs.netlify.app
+https://disney-app-nextjs.netlify.app/
